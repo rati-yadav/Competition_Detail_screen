@@ -17,9 +17,21 @@ const app = express();
 // Security headers
 app.use(helmet());
 
-// CORS
+// CORS — allow all Vercel deployments + localhost
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://competition-detail-screen.vercel.app',
+  /https:\/\/competition-detail-screen.*\.vercel\.app$/,
+];
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    const allowed = allowedOrigins.some(o =>
+      typeof o === 'string' ? o === origin : o.test(origin)
+    );
+    callback(null, allowed ? origin : false);
+  },
   credentials: true,
 }));
 
