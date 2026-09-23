@@ -9,6 +9,7 @@ const competitionRoutes = require('./routes/competition.routes');
 const registrationRoutes = require('./routes/registration.routes');
 const leaderboardRoutes = require('./routes/leaderboard.routes');
 const userRoutes = require('./routes/user.routes');
+const seedRoutes = require('./routes/seed.routes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -56,6 +57,7 @@ app.use('/api/competitions', competitionRoutes);
 app.use('/api/registrations', registrationRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/seed', seedRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
