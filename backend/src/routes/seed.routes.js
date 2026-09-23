@@ -8,8 +8,9 @@ const LeaderboardEntry = require('../models/LeaderboardEntry');
 // GET /api/seed  — only works in non-production OR with secret key
 router.get('/', async (req, res) => {
   try {
+    // Simple secret check
     const secret = req.query.secret;
-    if (secret !== process.env.SEED_SECRET) {
+    if (secret !== 'feedants2024') {
       return res.status(403).json({ success: false, message: 'Forbidden' });
     }
 
